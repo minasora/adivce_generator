@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+  <link href="./output.css" rel="stylesheet"> <!-- main stylesheet -->
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+  <title>Frontend Mentor | Advice generator app</title>
+
+  <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+  <style>
+    .manrope {
+      font-family: "Manrope", sans-serif;
+      font-optical-sizing: auto;
+      font-weight: 800;
+      font-style: normal;
+    }
+
+  </style>
+</head>
+<body class="bg-dark-blue flex justify-center items-center md:min-h-screen manrope">
+
+
+<div class="bg-dark-grayish-blue text-light-cyan  rounded p-6 md:w-1/2 relative text-center w-full mx-2 mt-36 md:mt-0">
+  <!-- Advice ID goes here -->
+  <div id="advice_id" class="text-xs my-4 text-neon-green tracking-evenwider">
+  </div>
+  <!-- Advice text goes here -->
+  <div id="content" class="font-bold text-2xl mb-5">
+  </div>
+
+  <div>
+    <img src="images/pattern-divider-desktop.svg" class="mx-auto mt-3 mb-6">
+  </div>
+
+  <div class="absolute   inset-x-0 -bottom-5">
+    <button onclick="get_random_advice()" class="border-none focus:outline-none focus:ring-0 bg-neon-green rounded-full p-4 shadow shadow-blue-500/40 hover:bg-neon-super-green">
+      <img src="images/icon-dice.svg" class= "w-4 h-4 rounded">
+    </button>
+  </div>
+</div>
+
+<script>
+  function get_random_advice() {
+    document.getElementById('content').textContent = `"Loading..."`;
+    fetch('https://api.adviceslip.com/advice')
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById('advice_id').textContent = `ADVICE # ${data.slip.id}`;
+        document.getElementById('content').textContent = `"${data.slip.advice}"`;
+      });
+  }
+ window.onload = get_random_advice;
+</script>
+
+
+
+</body>
